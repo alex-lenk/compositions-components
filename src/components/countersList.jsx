@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import Counter from "./counter";
+import React, {useState} from "react"
+import Counter from "./counter"
 
 const CountersList = () => {
   const initialState = [
@@ -42,9 +42,30 @@ const CountersList = () => {
     console.log('rest')
   }
 
+  const handleIncrement = (id) => {
+    const newState = counters.map(item => {
+      if (item.id === id) {
+        item.value += 1
+      }
+      return item
+    })
+    setCounter(newState)
+  }
+
+  const handleDecrement = (id) => {
+    const newState = counters.map(item => {
+      if (item.id === id && item.value !== 0) {
+        item.value -= 1
+      }
+      return item
+    })
+    setCounter(newState)
+  }
+
   return <>
     {counters.map(count =>
-      <Counter key={count.id} {...count} onDelete={handleDelete}/>
+      <Counter key={count.id} {...count} onDecrement={handleDecrement} onIncrement={handleIncrement}
+               onDelete={handleDelete}/>
     )}
 
     <button className="btn-primary btn m-2" onClick={handleReset}>Сброс</button>
